@@ -1,11 +1,17 @@
 # Normalize-RNA-Counts
-
+Welcome to Normalize-RNA-counts.
 This program has been designed to take a table of counts per gene (or feature) from RNA-seq and normalize the counts.
 If a genome features file (-g option) containing information about transcript lengths is provided, the default
 normalization is read counts per kilobase per million/fragments per kilobase per million (RPKM/FPKM), but can be
-changed to transcripts per million (TPM) by using the -t or --tpm option. If no genome file is provided, counts will
+changed to transcripts per million (TPM) by using the -t or --tpm option.
+To create a file containing the CDS length per gene, use [parse_gtf](https://github.com/davidwsant/parse_gtf) with
+the GTF file that was used for RNA-seq alignment. If no genome file is provided, counts will
 be normalized to read counts per million (RCPM). Use the -r option to provide a list of features that you do not want
 to be counted for normalization (excluding lines starting with either 'N_' or '__' added by HTSEq-count or STAR).
+To determine outliers that should be added to the remove file, check the manual to the package that was used for
+differential expression and see if an option exists to list the outlier features. If this is not possible or differential
+expression was not performed, a linear regression can be used to calculate a Cook's cutoff score, with a threshold of 1
+typically being used to determine outlier features. 
 
 Example usage:
 ```
